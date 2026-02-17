@@ -6,6 +6,8 @@ function App() {
   const[query,setQuery] = useState('')
   const[messages,setMessages] = useState([])
 
+  const API_URL = import.meta.env.VITE_API_URL
+
   const askAI = async () =>{
       
       const userPrompt = {role : "user",text : query}
@@ -14,7 +16,7 @@ function App() {
         ...previousMessages,userPrompt
       ])
 
-      const response = await fetch('http://localhost:3000/ask',{
+      const response = await fetch(`${API_URL}/ask`,{
           method: "POST",
           headers:{"content-type" : "application/json"},
           body : JSON.stringify({
