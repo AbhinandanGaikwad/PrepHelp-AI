@@ -6,7 +6,8 @@ import cors from 'cors'
 const app = express()
 app.use(express.json())
 app.use(cors({
-    origin : ['http://localhost:5000']
+    origin : ['http://localhost:5000',process.env.CLIENT_URL],
+    credentials : true
 }))
 
 const ai = new GoogleGenAI({apiKey: process.env.GEMINI_API_KEY})
@@ -91,7 +92,9 @@ app.post('/ask',async (req, res) => {
     }
 })
 
-app.listen(3000, (request, response) => {
+const PORT = process.env.PORT || 3000
+
+app.listen(PORT, (request, response) => {
     console.log('Server is Up and Running !');
     
 })
